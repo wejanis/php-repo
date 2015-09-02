@@ -31,5 +31,6 @@ if(isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password'
 else{
 	$response["success"] = 0;
 	$response["message"] = "A required field is missing!";
+	echo json_encode($response);
 }
 ?>
