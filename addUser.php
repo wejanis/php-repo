@@ -8,12 +8,11 @@ $response = array();
 $response["success"] = 0;
 $response["message"] = "A required field is missing!";
 $response["username_error"] = "No error";
-$response["password_error"] = "No error";
 
 //Connect to database using redbean
 R::setup('mysql:host=localhost;dbname=firstdb','root', '33Xddy2fNWDW5NQG' );
 
-if(isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['verifypassword']))
+if(isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password']))
 {
 	$username_result = array();
 	$username_result = R::find('users', 'username = ?', array($_POST['username']));
@@ -22,16 +21,8 @@ if(isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password'
 	{
 		$response["success"] = 0;
 		$response["username_error"] = "Username already exists.";
-		unset($username_result);
 	}
-	
-	//User did not verify their input passwords correctly.
-    if($_POST['password'] != $_POST['verifypassword'])
-	{
-		$response["success"] = 0;
-		$response["password_error"] = "Passwords do not match!";
-	}
-	
+
 	else{
 		$id = -1;	
 		
@@ -53,7 +44,7 @@ if(isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password'
 			$response["success"] = 0;
 			$response["message"] = "Failed to create account.";
 		}
-		//echo("\nCreated new user: " . $user->username);
+
 		R::close();
 	}
 }
