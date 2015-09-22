@@ -6,7 +6,7 @@ require 'rb.php';
 //array for json response
 $response = array();
 $response["success"] = 0;
-$response["message"] = "A required field is missing!";
+//$response["message"] = "A required field is missing!";
 $response["username_error"] = "No error";
 
 //Connect to database using redbean
@@ -37,12 +37,12 @@ if(isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password'
 		if($id != -1)
 		{
 			$response["success"] = 1;
-			$response["message"] = "Account successfully created!";
+			//$response["message"] = "Account successfully created!";
 		}
 		//Otherwise, the bean failed to store
 		else{
 			$response["success"] = 0;
-			$response["message"] = "Failed to create account.";
+			//$response["message"] = "Failed to create account.";
 		}
 
 		R::close();
@@ -50,5 +50,5 @@ if(isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password'
 }
 
 echo json_encode($response);
-die();
+
 ?>
