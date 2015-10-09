@@ -19,7 +19,7 @@ R::setup('mysql:host=localhost;dbname=firstdb','root', '33Xddy2fNWDW5NQG' );
 if(isset($_POST['username']) && isset($_POST['password'])){
 	
 	//Load the bean of the username given by the user
-	$user_result = R::findOne('users', 'username = ?', array($_POST['username']));
+	$user_result = R::findOne('user', 'username = ?', array($_POST['username']));
 
 	//If the result is null, the username doesn't exist
 	if($user_result == null){

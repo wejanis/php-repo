@@ -15,7 +15,7 @@ R::setup('mysql:host=localhost;dbname=firstdb','root', '33Xddy2fNWDW5NQG' );
 if(isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password']))
 {
 	$username_result = array();
-	$username_result = R::find('users', 'username = ?', array($_POST['username']));
+	$username_result = R::find('user', 'username = ?', array($_POST['username']));
 	
 	if(!empty($username_result))
 	{
@@ -27,7 +27,7 @@ if(isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password'
 		$id = -1;	
 		
 		//Create a user "bean" with information from the post request and store it in the database
-		$user = R::dispense('users');
+		$user = R::dispense('user');
 		$user->name = $_POST['name'];
 		$user->username = $_POST['username'];
 		$user->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
