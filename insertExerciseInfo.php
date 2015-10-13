@@ -14,36 +14,25 @@ R::setup('mysql:host=localhost;dbname=firstdb','root', '33Xddy2fNWDW5NQG' );
 
 
 if(isset($_POST['exercise_name']) && isset($_POST['weight']) && isset($_POST['reps']) 
-	&& isset($_POST['exercise_complete']) && isset($_POST['date']))
+	&& isset($_POST['exercise_complete']) && isset($_POST['date']) && isset($_POST['username']))
 {
-	$workout_result = array();
-	$workout_id = -1;
-	$workout_result = R::findOne('workouts', 'workout_date = ?', array($_POST['date']));
-	
-	if(empty($workout_result))
-	{
-		$workout = R::dispense('workouts');
-		$workout->user_id = 27; //hardcoded for now until I get username working.
-		$newdate = date('Y-m-d', strtotime($_POST['date']));
-		$workout->workout_date = $newdate;
-		$workout_id = R::store($workout);
-		
-	}
 
-	else{
-		$workout_id = $workout_result->getId();
-	}
-	
+	$username_result = R::findOne('user', 'username = ?', array($_POST['username']));
+	$user_id = $username_result->getId();
+
 	$exercise = R::dispense('exercises');
-	$exercise->workout_id = $workout_id;
+	$exercise->user_id = $user_id;
 	$exercise->exercise_name = $_POST['exercise_name'];
 	$exercise->weight = $_POST['weight'];
 	$exercise->reps = $_POST['reps'];
 	
+	$date = date('Y-m-d', strtotime($_POST['date']));
+	$exercise->exercise_date = $date;
+	
 	if($_POST['exercise_complete'] == "false")
 		$exercise->exercise_complete = 0;
 	else
-		$exercise->exercise_complete - 1;
+		$exercise->exercise_complete = 1;
 	
 	$exercise_id = R::store($exercise);
 	
