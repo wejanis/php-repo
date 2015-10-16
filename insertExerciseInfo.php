@@ -14,7 +14,7 @@ R::setup('mysql:host=localhost;dbname=firstdb','root', '33Xddy2fNWDW5NQG' );
 
 
 if(isset($_POST['exercise_name']) && isset($_POST['weight']) && isset($_POST['reps']) 
-	&& isset($_POST['exercise_complete']) && isset($_POST['date']) && isset($_POST['username']))
+	&& isset($_POST['exercise_complete']) && isset($_POST['date']) && isset($_POST['username']) && isset($_POST['sets']))
 {
 
 	$username_result = R::findOne('user', 'username = ?', array($_POST['username']));
@@ -25,6 +25,7 @@ if(isset($_POST['exercise_name']) && isset($_POST['weight']) && isset($_POST['re
 	$exercise->exercise_name = $_POST['exercise_name'];
 	$exercise->weight = $_POST['weight'];
 	$exercise->reps = $_POST['reps'];
+	$exercise->sets = $_POST['sets'];
 	
 	$date = date('Y-m-d', strtotime($_POST['date']));
 	$exercise->exercise_date = $date;
