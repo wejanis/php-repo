@@ -18,7 +18,7 @@ $username_result = R::findOne('user', 'username = ?', array($username));
 $user_id = $username_result->getId();
 
 $exercises = R::getAll( 
-	'select exercise_name, weight, reps, exercise_date, exercise_complete 
+	'select exercise_name, weight, reps, exercise_complete, sets 
 	 from exercises 
 	 where user_id = :id AND exercise_date = :date', 
 	 array(':id' => $user_id,':date' => $date)
