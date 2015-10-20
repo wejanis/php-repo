@@ -18,14 +18,12 @@ $username_result = R::findOne('user', 'username = ?', array($username));
 $user_id = $username_result->getId();
 
 $exercises = R::getAll( 
-	'select exercise_name, weight, reps, exercise_complete, sets 
+	'select id, exercise_name, weight, reps, exercise_complete 
 	 from exercises 
-	 where user_id = :id AND exercise_date = :date', 
-	 array(':id' => $user_id,':date' => $date)
+	 where user_id = :user_id AND exercise_date = :date', 
+	 array(':user_id' => $user_id,':date' => $date)
 	);
 
 echo json_encode($exercises);
-
-
 
 ?>
