@@ -17,6 +17,8 @@ if(isset($_POST['copy_id']))
 {
 	$id = intval($_POST['copy_id']);
 	
+	// Load the exercise to be copied based on the given id
+	// and duplicate it.
 	$exercise = R::load('exercises', $id);
 	$exercise_copy = R::duplicate($exercise);
 	$response["new_id"] = R::store($exercise_copy);

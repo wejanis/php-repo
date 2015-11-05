@@ -9,20 +9,23 @@ $response["success"] = 0;
 
 //Connect to database using redbean
 R::setup('mysql:host=localhost;dbname=firstdb','root', '33Xddy2fNWDW5NQG' );
-//R::debug(true);
-
 
 if(isset($_POST['is_complete']) && isset($_POST['exercise_id']))
 {
+	// Use the given id to load the specified exercise into a bean
+	// and then update the exercise complete field.
 	$id = intval($_POST['exercise_id']);
 	$exercise_complete = intval($_POST['is_complete']);
 	$exercise = R::load('exercises', $id);
 	$exercise->exercise_complete = $exercise_complete;
+	
+	//Store the new info in the database and send a succesful json response
 	R::store($exercise);
-
 	$response["success"] = 1;
 	
 }
+
+//If the post body fields aren't set, send a unsuccessful json response.
 else{
 	$response["success"] = 0;
 }

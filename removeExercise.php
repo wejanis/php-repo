@@ -9,13 +9,12 @@ $response["success"] = 0;
 
 //Connect to database using redbean
 R::setup('mysql:host=localhost;dbname=firstdb','root', '33Xddy2fNWDW5NQG' );
-//R::debug(true);
-
 
 if(isset($_POST['delete_id']))
 {
 	$id = intval($_POST['delete_id']);
 	
+	//Delete the exercise from the database
 	$exercise = R::load('exercises', $id);
 	R::trash($exercise);
 	$response["success"] = 1;
